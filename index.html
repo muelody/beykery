@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eiloudie's Little Bakery</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:#f6efe7;color:#4b2e2b;overflow-x:hidden;}
+
+#loading{
+position:fixed;
+width:100%;
+height:100vh;
+background:#fff8f1;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+font-size:20px;
+font-family:'Playfair Display',serif;
+}
+
+.sparkle{
+position:fixed;
+font-size:14px;
+opacity:0.4;
+animation:float 6s infinite ease-in-out;
+}
+@keyframes float{
+0%{transform:translateY(0);}
+50%{transform:translateY(-12px);}
+100%{transform:translateY(0);}
+}
+
+.hero{
+min-height:60vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:linear-gradient(to bottom,#fff8f1,#f6efe7);
+text-align:center;
+padding:80px 20px;
+}
+
+.hero h1{
+font-family:'Playfair Display',serif;
+font-size:34px;
+margin-bottom:20px;
+}
+
+.hero p{
+max-width:450px;
+line-height:1.6;
+opacity:0.9;
+margin-bottom:30px;
+}
+
+.cookie-btn{
+background:#c58b6d;
+color:white;
+border:none;
+padding:12px 26px;
+border-radius:50px;
+font-size:15px;
+cursor:pointer;
+transition:0.3s;
+}
+.cookie-btn:hover{transform:scale(1.05);}
+
+.slider-container{position:relative;width:100%;overflow:hidden;margin:70px 0;}
+.slider-track{display:flex;transition:transform 0.5s ease;}
+.slide{min-width:100%;display:flex;justify-content:center;align-items:center;padding:40px;}
+.card{
+background:#fff8f1;
+padding:35px;
+border-radius:25px;
+max-width:350px;
+text-align:center;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.slider-buttons{
+position:absolute;
+top:50%;
+width:100%;
+display:flex;
+justify-content:space-between;
+transform:translateY(-50%);
+padding:0 20px;
+}
+.slider-buttons button{
+background:#c58b6d;
+border:none;
+color:white;
+font-size:18px;
+padding:8px 14px;
+border-radius:50%;
+cursor:pointer;
+}
+
+.menu-section{padding:60px 20px;text-align:center;}
+.menu-item{
+display:inline-block;
+background:#fff8f1;
+padding:16px 22px;
+margin:10px;
+border-radius:18px;
+cursor:pointer;
+transition:0.3s;
+box-shadow:0 6px 15px rgba(0,0,0,0.08);
+}
+.menu-item:hover{transform:scale(1.05);background:#f3e4d9;}
+.menu-item span{
+display:block;
+margin-top:6px;
+font-size:22px;
+opacity:0;
+transition:0.3s;
+}
+
+#messageSection input,
+#messageSection textarea{
+width:320px;
+padding:10px;
+border-radius:15px;
+border:none;
+margin:8px 0;
+background:#fff8f1;
+}
+
+.message-box{
+background:#fff8f1;
+padding:15px;
+border-radius:18px;
+margin:15px auto;
+width:320px;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
+position:relative;
+text-align:left;
+}
+
+.reply-box{
+background:#f3e4d9;
+margin-top:8px;
+padding:8px;
+border-radius:10px;
+font-size:14px;
+}
+
+.delete-btn{
+position:absolute;
+top:8px;
+right:10px;
+cursor:pointer;
+color:#c58b6d;
+}
+
+footer{
+background:#e6c7b2;
+padding:25px;
+text-align:center;
+margin-top:60px;
+}
+</style>
+</head>
+<body>
+
+<div id="loading">loading bakery... ✨</div>
+
+<div class="sparkle" style="top:20%;left:15%;">⭐</div>
+<div class="sparkle" style="top:60%;left:80%;">🤎</div>
+<div class="sparkle" style="top:40%;left:50%;">✨</div>
+
+<section class="hero">
+<h1>welcome to eiloudie's little bakery</h1>
+<p>
+a cozy corner for sweet crumbs, soft smiles, and tiny happy moments 🤎✨  
+where every crumb tells a story ⭐
+</p>
+<button class="cookie-btn" onclick="scrollToSection()">enter the bakery 🍰</button>
+</section>
+
+<section id="about">
+<div class="slider-container">
+<div class="slider-track" id="sliderTrack">
+
+<div class="slide"><div class="card"><h3>Introduction</h3><p>hello! i'm eiloudie 🤎 welcome to my sweet little world ✨</p></div></div>
+<div class="slide"><div class="card"><h3>Our Space</h3><p>a warm digital bakery where smiles stay forever 💌</p></div></div>
+<div class="slide"><div class="card"><h3>Secret Recipe</h3><p>1 cup sweetness, 2 spoons of chaos, mixed with sincerity ⭐</p></div></div>
+
+</div>
+
+<div class="slider-buttons">
+<button onclick="prevSlide()">‹</button>
+<button onclick="nextSlide()">›</button>
+</div>
+</div>
+</section>
+
+<section class="menu-section" id="messageSection">
+<h2>Leave a Message 💌</h2>
+
+<input type="text" id="username" placeholder="your name (optional)">
+<br>
+<textarea id="userMessage" placeholder="write something sweet..."></textarea>
+<br>
+<button class="cookie-btn" onclick="sendMessage()">send 🤎</button>
+
+<div id="messagesContainer"></div>
+</section>
+
+<footer>made with love by eiloudie ✨ | IG: @muelody</footer>
+
+<script>
+if (window.location.hash === "#eiloudie-owner") {
+localStorage.setItem("eiloudie_owner","true");
+alert("owner mode activated 🤎");
+}
+const OWNER_MODE = localStorage.getItem("eiloudie_owner")==="true";
+
+window.onload=function(){
+setTimeout(()=>{document.getElementById("loading").style.display="none";},1500);
+}
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getDatabase, ref, push, onValue, remove, update }
+from "https://www.gstatic.com/firebasejs/12.9.0/firebase-database.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyBGf8psPfPHiuHFlxIUdREgsb06ADKBq48",
+authDomain: "bakery-8e284.firebaseapp.com",
+databaseURL: "https://bakery-8e284-default-rtdb.firebaseio.com",
+projectId: "bakery-8e284",
+storageBucket: "bakery-8e284.firebasestorage.app",
+messagingSenderId: "428929882359",
+appId: "1:428929882359:web:e457ef28264676cff29bf2"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+window.sendMessage=function(){
+const name=document.getElementById("username").value||"anonymous";
+const message=document.getElementById("userMessage").value;
+if(message.trim()==="")return;
+
+push(ref(db,"messages"),{name,message,replies:[]});
+document.getElementById("userMessage").value="";
+}
+
+window.replyMessage=function(id){
+const reply=prompt("write reply:");
+if(!reply)return;
+
+const messageRef=ref(db,"messages/"+id);
+onValue(messageRef,(snap)=>{
+const data=snap.val();
+let replies=data.replies||[];
+replies.push(reply);
+update(messageRef,{replies});
+},{onlyOnce:true});
+}
+
+window.deleteMessage=function(id){
+remove(ref(db,"messages/"+id));
+}
+
+window.deleteReply=function(id,index){
+const messageRef=ref(db,"messages/"+id);
+onValue(messageRef,(snap)=>{
+const data=snap.val();
+let replies=data.replies||[];
+replies.splice(index,1);
+update(messageRef,{replies});
+},{onlyOnce:true});
+}
+
+onValue(ref(db,"messages"),(snapshot)=>{
+const container=document.getElementById("messagesContainer");
+container.innerHTML="";
+snapshot.forEach(child=>{
+const data=child.val();
+const id=child.key;
+
+let repliesHTML="";
+if(data.replies){
+data.replies.forEach((r,i)=>{
+repliesHTML+=`
+<div class="reply-box">
+<b>eiloudie:</b> ${r}
+${OWNER_MODE ? `<span style="float:right;cursor:pointer;" onclick="deleteReply('${id}',${i})">🗑</span>` : ""}
+</div>`;
+});
+}
+
+container.innerHTML+=`
+<div class="message-box">
+${OWNER_MODE ? `<div class="delete-btn" onclick="deleteMessage('${id}')">🗑</div>` : ""}
+<b>${data.name}</b><br>
+${data.message}
+<br><br>
+${OWNER_MODE ? `<button onclick="replyMessage('${id}')">reply 🤎</button>` : ""}
+${repliesHTML}
+</div>`;
+});
+});
+</script>
+
+<script>
+function scrollToSection(){document.getElementById("about").scrollIntoView({behavior:"smooth"});}
+let index=0;
+const track=document.getElementById("sliderTrack");
+function nextSlide(){index=(index+1)%3;track.style.transform=`translateX(-${index*100}%)`;}
+function prevSlide(){index=(index-1+3)%3;track.style.transform=`translateX(-${index*100}%)`;}
+</script>
+
+</body>
+</html>
